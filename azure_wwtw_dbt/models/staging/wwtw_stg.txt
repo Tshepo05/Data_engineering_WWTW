@@ -1,0 +1,69 @@
+
+{{ config(materialized='view')}}
+
+{% set yaml_metadata %}
+
+source_model: stg_wwtw
+derived_columns:
+  RECORD_SOURCE: "!synthetic_wwtw_dataset_demo_2025"
+  LOAD_DATE: "CAST('{{ run_started_at }}' AS TIMESTAMP)"
+  EFFECTIVE_FROM: sample_timestamp
+hashed_columns:
+  INFLOW_HK: inflow_id
+  PST_HK: pst_id
+  AST_HK: ast_id
+  SST_HK: sst_id
+  INFLOW_PST_HK: 
+    - inflow_id
+    - pst_id
+  PST_AST_HK:
+    - pst_id
+    - ast_id
+  AST_SST_HK:
+    - ast_id
+    - sst_id
+  WWTW_HASHDIFF:
+    - inflow_id
+    - sample_timestamp
+    - inflow_rate
+    - inflow_concentration
+    - pst_id
+    - pst_inflow_rate
+    - pst_inflow_concentration
+    - pst_outflow_rate
+    - pst_outflow_concentration
+    - pst_concentration
+    - pst_underflow_rate
+    - ast_id
+    - ast_inflow_rate
+    - ast_inflow_concentration
+    - ast_oxidation_inflow_rate
+    - ast_outflow_rate
+    - ast_outflow_concentration
+    - ast_concentration
+    - ast_dissolved_oxygen
+    - ast_oxidation_outflow_rate
+    - sst_id
+    - sst_inflow_rate
+    - sst_inflow_concentration
+    - sst_outflow_rate
+    - sst_outflow_concentration
+    - sst_concentration
+    - sst_underflow_rate
+    - EFFECTIVE_FROM
+{% endset %}
+
+{% set metadata_dict = fromyaml(yaml_metadata) %}
+
+{% set source_model = metadata_dict['source_model'] %}
+{% set derived_columns = metadata_dict['derived_columns'] %}
+{% set hashed_columns = metadata_dict['hashed_columns'] %}
+
+{{ automate_dv.stage(include_source_columns=true,
+                     source_model=source_model,
+                     derived_columns=derived_columns,
+                     hashed_columns=hashed_columns)}}
+                   
+
+
+

@@ -1,0 +1,46 @@
+models:
+  - name: hub_inflow
+    description: "Hub for inflow"
+    columns:
+      - name: INFLOW_HK
+        description: "Hash key for inflow"
+      - name: INFLOW_ID
+        description: "Natural key for inflow"
+      - name: LOAD_DATE
+        description: "Load date timestamp"
+      - name: RECORD_SOURCE
+        description: "Source system"  
+  - name: hub_pst
+    description: "Hub for primary settlement tank (PST)"
+    columns:
+      - name: PST_HK      
+        description: "Hash key for PST"
+      - name: PST_ID
+        description: "Natural key for PST"
+      - name: LOAD_DATE
+        description: "Load date timestamp"
+      - name: RECORD_SOURCE
+        description: "Source system"  
+  - name: hub_ast
+    description: "Hub for activated sludge tank (AST)"
+    columns:
+      - name: AST_HK      
+        description: "Hash key for AST"
+      - name: AST_ID
+        description: "Natural key for AST"
+      - name: LOAD_DATE
+        description: "Load date timestamp"
+      - name: RECORD_SOURCE
+        description: "Source system"  
+  - name: hub_sst
+    description: "Hub for secondary settlement tank (SST)"
+    columns:
+      - name: SST_HK      
+        description: "Hash key for SST"
+      - name: SST_ID
+        description: "Natural key for SST"
+      - name: LOAD_DATE
+        description: "Load date timestamp"
+      - name: RECORD_SOURCE
+        description: "Source system"  
+

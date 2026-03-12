@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: source
+  - name: wwtw_stg
+    description: "raw"
+    columns:
+      - name: INFLOW_HK
+        tests:
+          - not_null
+          - unique
+      - name: PST_HK
+        tests:
+          - not_null
+          - unique
+      - name: AST_HK
+        tests:
+          - not_null
+          - unique
+      - name: SST_HK
+        tests:
+          - not_null
+          - unique
+      - name: INFLOW_PST_HK
+        tests:
+          - not_null
+          - unique
+      - name: PST_AST_HK
+        tests:
+          - not_null
+          - unique
+      - name: AST_SST_HK
+        tests:
+          - not_null
+          - unique
+      - name: wwtw_hashdiff
+        tests:
+          - not_null

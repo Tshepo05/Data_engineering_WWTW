@@ -1,0 +1,9 @@
+version: 2
+sources:
+  - name: postgres # Using 'postgres' as the source name, matching the database
+    schema: public
+    # This is the crucial fix for PostgreSQL errors:
+    database: null 
+    tables:
+      - name: blob_data_ingest # MUST BE LOWERCASE
+        description: "Raw data ingested from Azure Blob Storage via Python script."

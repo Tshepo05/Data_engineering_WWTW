@@ -1,0 +1,40 @@
+models:
+    - name: link_inflow_pst
+      description: "Link between inflow and primary settlement tank (PST)"
+      columns:
+        - name: INFLOW_PST_PK
+          description: "Hash key for link between inflow and PST"
+        - name: INFLOW_FK
+          description: "Foreign key to inflow hub"
+        - name: PST_FK
+          description: "Foreign key to PST hub"
+        - name: LOAD_DATE
+          description: "Load date timestamp"
+        - name: RECORD_SOURCE
+          description: "Source system"
+    - name: link_pst_ast
+      description: "Link between primary settlement tank (PST) and activated sludge tank (AST)"
+      columns:
+        - name: PST_AST_PK
+          description: "Hash key for link between PST and AST"
+        - name: PST_FK
+          description: "Foreign key to PST hub"
+        - name: AST_FK
+          description: "Foreign key to AST hub"
+        - name: LOAD_DATE
+          description: "Load date timestamp"
+        - name: RECORD_SOURCE
+          description: "Source system"
+    - name: link_ast_sst
+      description: "Link between activated sludge tank (AST) and secondary settlement tank (SST)"
+      columns:
+        - name: AST_SST_PK
+          description: "Hash key for link between AST and SST"
+        - name: AST_FK
+          description: "Foreign key to AST hub"
+        - name: SST_FK
+          description: "Foreign key to SST hub"
+        - name: LOAD_DATE
+          description: "Load date timestamp"
+        - name: RECORD_SOURCE
+          description: "Source system"  

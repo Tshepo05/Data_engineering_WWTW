@@ -1,0 +1,87 @@
+models:
+    - name: sat_inflow
+      description: "Satellite for inflow"
+      columns:
+        - name: INFLOW_PK
+          description: "Hash key for inflow"
+        - name: sample_timestamp
+          description: "Timestamp of the sample"
+        - name: inflow_rate 
+          description: "Inflow rate value"
+        - name: inflow_concentration  
+          description: "Inflow concentration value"
+        - name: LOAD_DATE
+          description: "Load date timestamp"
+        - name: RECORD_SOURCE
+          description: "Source system"
+    - name: sat_pst
+      description: "Satellite for primary settlement tank (PST)"
+      columns:
+        - name: PST_PK
+          description: "Hash key for PST"
+        - name: sample_timestamp
+          description: "Timestamp of the sample"
+        - name: pst_inflow_rate 
+          description: "PST inflow rate value"
+        - name: pst_inflow_concentration  
+          description: "PST inflow concentration value"
+        - name: pst_outflow_rate  
+          description: "PST outflow rate value"
+        - name: pst_outflow_concentration  
+          description: "PST outflow concentration value"
+        - name: pst_concentration  
+          description: "PST concentration value"
+        - name: pst_underflow_rate  
+          description: "PST underflow rate to sludge"
+        - name: LOAD_DATE
+          description: "Load date timestamp"
+        - name: RECORD_SOURCE
+          description: "Source system"
+    - name: sat_ast
+      description: "Satellite for activated sludge tank (AST)"
+      columns:
+        - name: AST_PK
+          description: "Hash key for AST"
+        - name: sample_timestamp
+          description: "Timestamp of the sample"
+        - name: ast_inflow_rate 
+          description: "AST inflow rate value"
+        - name: ast_inflow_concentration  
+          description: "AST inflow concentration value"
+        - name: ast_oxidation_inflow_rate  
+          description: "AST oxidation inflow rate value"
+        - name: ast_outflow_rate  
+          description: "AST outflow rate value"
+        - name: ast_outflow_concentration  
+          description: "AST outflow concentration value"
+        - name: ast_concentration  
+          description: "AST concentration value"
+        - name: ast_dissolved_oxygen  
+          description: "Dissolved oxygen in AST"
+        - name: ast_oxidation_outflow_rate  
+          description: "AST oxidation outflow rate value"
+        - name: LOAD_DATE
+          description: "Load date timestamp"
+        - name: RECORD_SOURCE
+          description: "Source system"
+    - name: sat_sst
+      description: "Satellite for secondary settlement tank (SST)"
+      columns:
+        - name: SST_PK
+          description: "Hash key for SST"
+        - name: sample_timestamp
+          description: "Timestamp of the sample"
+        - name: sst_inflow_rate 
+          description: "SST inflow rate value"
+        - name: sst_inflow_concentration  
+          description: "SST inflow concentration value"
+        - name: sst_outflow_rate  
+          description: "SST outflow rate value"
+        - name: sst_outflow_concentration  
+          description: "SST outflow concentration value"
+        - name: sst_concentration  
+          description: "SST concentration value"
+        - name: sst_underflow_rate  
+          description: "SST underflow rate to sludge"
+        - name: LOAD_DATE
+          description: "Load date timestamp"  
