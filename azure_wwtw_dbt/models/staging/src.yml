@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_wwtw
+    description: "Raw seeded wastewater dataset from synthetic_wwtw_dataset_demo_2025.csv"
+    columns:
+      - name: sample_timestamp
+        description: "Timestamp of the sample"
+        tests:
+          - not_null
+          - unique
+  
+
+  
