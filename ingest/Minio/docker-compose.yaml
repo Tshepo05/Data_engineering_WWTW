@@ -1,0 +1,87 @@
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres_lakehouse
+    env_file: .env  
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./minio_files:/var/minio_files # Mount a local directory for CSVs
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks:
+      - lakehouse_network
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server --console-address ":9001" /data
+    volumes:
+      - ./minio_storage:/data
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    networks:
+      - lakehouse_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  
+  # MinIO Client for easy data management
+  mc:
+    image: minio/mc:latest
+    container_name: minio_client
+    depends_on:
+      - minio
+    networks:
+      - lakehouse_network
+    entrypoint: >
+      /bin/sh -c "
+      sleep 10;
+      mc alias set myminio http://minio:9000 minioadmin minioadmin123;
+      mc mb myminio/lakehouse-data --ignore-existing;
+      mc mb myminio/raw-data --ignore-existing;
+      mc mb myminio/processed-data --ignore-existing;
+      echo 'MinIO buckets created successfully';
+      tail -f /dev/null;
+      "
+
+  # Python service for ETL operations
+  python-etl:
+    build:
+      context: ./python-etl
+      dockerfile: Dockerfile
+    container_name: python_etl
+    depends_on:
+      - postgres
+      - minio
+    networks:
+      - lakehouse_network
+    volumes:
+      - ./python-etl:/app
+      - ./sample-data:/sample-data
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: lakehouse_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+    command: tail -f /dev/null
+
+volumes:
+  postgres_data:
+  minio_data:
+
+networks:
+  lakehouse_network:
+    driver: bridge
+
+

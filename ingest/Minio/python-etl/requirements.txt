@@ -1,0 +1,8 @@
+# Python Dependencies
+
+psycopg2-binary
+minio
+pandas
+pyarrow
+sqlalchemy
+python-dotenv
